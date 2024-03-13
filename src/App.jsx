@@ -7,12 +7,16 @@ import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
 import AppLayout from "./pages/AppLayout";
 import CityList from "./components/CityList";
+import CountryList from "./components/CountryList";
+import City from "./components/City";
 
 const URL = "http://localhost:8000";
 
 function App() {
   const [citiesList, setCitiesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  console.log(citiesList);
 
   useEffect(function () {
     async function getCitiesList() {
@@ -44,7 +48,11 @@ function App() {
             path="cities"
             element={<CityList cities={citiesList} isLoading={isLoading} />}
           />
-          <Route path="countries" element={<p>List of countries</p>} />
+          <Route path="cities/:cityId" element={<City />} />
+          <Route
+            path="countries"
+            element={<CountryList cities={citiesList} isLoading={isLoading} />}
+          />
           <Route path="form" element={<p>Form</p>} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
